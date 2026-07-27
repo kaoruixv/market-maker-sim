@@ -1,0 +1,21 @@
+[project]
+name = "market-maker-sim"
+version = "0.1.0"
+description = "Limit order book engine and inventory-aware market-making simulator"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.10.9",
+    "pandas>=2.3.3",
+    "sortedcontainers>=2.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
