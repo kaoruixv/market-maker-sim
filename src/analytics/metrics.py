@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+
 
 @dataclass
 class TradeSnapshot:
@@ -11,9 +11,10 @@ class TradeSnapshot:
     realized_pnl: float
     unrealized_pnl: float
 
+
 class PerformanceLogger:
     def __init__(self):
-        self.history: List[TradeSnapshot] = []
+        self.history: list[TradeSnapshot] = []
 
     def record_snapshot(self, snapshot: TradeSnapshot):
         self.history.append(snapshot)

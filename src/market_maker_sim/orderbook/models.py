@@ -1,23 +1,26 @@
-from enum import Enum
 from dataclasses import dataclass
-from typing import Optional
+from enum import Enum
+
 
 class Side(Enum):
     BID = 1
     ASK = 2
 
+
 class OrderType(Enum):
     LIMIT = 1
     MARKET = 2
+
 
 @dataclass
 class Order:
     order_id: int
     side: Side
     qty: int
-    price: Optional[float] = None
+    price: float | None = None
     order_type: OrderType = OrderType.LIMIT
     timestamp: int = 0
+
 
 @dataclass
 class Trade:
