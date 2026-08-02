@@ -1,6 +1,7 @@
 import math
 import random
 import statistics
+import os
 
 from src.market_maker.strategy import AvellanedaStoikovAgent
 
@@ -33,7 +34,7 @@ def run_single_simulation():
         if random.random() < prob_ask_fill:
             agent.on_trade_fill(step, ask, quantity, "SELL", mid_price)
 
-    # THE FIX: Mark the final inventory to market
+    # Mark the final inventory to market
     return agent.logger.get_total_pnl(agent.inventory, mid_price)
 
 
@@ -41,12 +42,30 @@ def run_monte_carlo(iterations=1000):
     print(f"Running Realistic AS Monte Carlo ({iterations} iterations)...")
     pnl_results = [run_single_simulation() for _ in range(iterations)]
 
-    print("\n--- Realistic Statistical Risk Profile ---")
-    print(f"Mean PnL:           ${statistics.mean(pnl_results):.2f}")
-    print(f"Standard Deviation: ${statistics.stdev(pnl_results):.2f}")
-    print(f"Variance:           ${statistics.variance(pnl_results):.2f}")
-    print(f"Min PnL:            ${min(pnl_results):.2f}")
-    print(f"Max PnL:            ${max(pnl_results):.2f}")
+    # Calculate stats
+    mean_pnl = statistics.mean(pnl_results)
+    stdev_pnl = statistics.stdev(pnl_results)
+    variance_pnl = statistics.variance(pnl_results)
+    min_pnl = min(pnl_results)
+    max_pnl = max(pnl_results)
+
+    # Format the output string
+    output = (
+        f"--- Realistic Statistical Risk Profile ---\n"
+        f"Mean PnL:           ${mean_pnl:.2f}\n"
+        f"Standard Deviation: ${stdev_pnl:.2f}\n"
+        f"Variance:           ${variance_pnl:.2f}\n"
+        f"Min PnL:            ${min_pnl:.2f}\n"
+        f"Max PnL:            ${max_pnl:.2f}\n"
+    )
+
+    # Print to console (so you can still see it in the GitHub Actions UI)
+    print(output)
+
+    # THE FIX: Save the output to a file in the results folder
+    os.makedirs("results", exist_ok=True)
+    with open("results/monte_carlo_summary.txt", "w") as file:
+        file.write(output)
 
 
 if __name__ == "__main__":
