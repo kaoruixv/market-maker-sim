@@ -1,7 +1,7 @@
 import math
+import os
 import random
 import statistics
-import os
 
 from src.market_maker.strategy import AvellanedaStoikovAgent
 
