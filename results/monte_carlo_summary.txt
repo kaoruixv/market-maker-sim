@@ -1,6 +1,6 @@
 --- Realistic Statistical Risk Profile ---
-Mean PnL:           $256.96
-Standard Deviation: $40.76
-Variance:           $1661.63
-Min PnL:            $131.22
-Max PnL:            $384.84
+Mean PnL:           $255.56
+Standard Deviation: $39.84
+Variance:           $1587.19
+Min PnL:            $110.42
+Max PnL:            $386.85
